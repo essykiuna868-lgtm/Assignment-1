@@ -1,0 +1,39 @@
+class CustomStack {
+    private int[] stack;
+    private int[] inc;
+    private int top;
+
+    public CustomStack(int maxSize) {
+        stack = new int[maxSize];
+        inc = new int[maxSize];
+        top = 0;
+    }
+
+    public void push(int x) {
+        if (top < stack.length) {
+            stack[top] = x;
+            top++;
+        }
+    }
+
+    public int pop() {
+        if (top == 0) return -1;
+
+        top--;
+        int res = stack[top] + inc[top];
+
+        if (top > 0) {
+            inc[top - 1] += inc[top];
+        }
+
+        inc[top] = 0; // reset increment
+        return res;
+    }
+
+    public void increment(int k, int val) {
+        int idx = Math.min(k, top) - 1;
+        if (idx >= 0) {
+            inc[idx] += val;
+        }
+    }
+}
